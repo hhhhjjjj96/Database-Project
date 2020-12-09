@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Search Result</h1>
+<br><br>
+{% if not movies %}
+<h3>검색 결과가 없습니다</h3>
+{% else %}
+{% for movie in movies.all %}
+<div class="container">
+    <div class="card" style="width: 60%;">
+        <div class="row">
+            <div class="col-auto">
+                <div class="card-body">
+                    <h2>{{ movie.moviename }}</h2>
+                    <br>
+                    <p>Director : {{movie.directorname}}</p>
+                    <p>Movie Type : {{movie.movietype}}</p>
+                    <p>Rating : {{movie.rating}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card-body">
+                    <br><br>
+                    <h3>Actors</h3>
+                    {% for casts in cast_info %}
+                    {% for cast in casts %}
+                    {% if cast.movieid.id == movie.id %}
+                    <div>
+                        Name : {{cast.actorid.name}},
+                        Age : {{cast.actorid.age}},
+                        Sex : {{cast.actorid.sex}},
+                        Rating : {{cast.actorid.rating}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<h1>My Order</h1>
+<br><br>
+
+<div class="container">
+    <div class="card" style="width: 100%;">
+        <div class="row">
+            {% for item in order_info %}
+            <div class="col">
+                <div class="card-body">
+                    <h3>{{forloop.counter}}. {{ item.movieid.moviename }}</h3>
+                    <br>
+                    <p>Director : {{item.movieid.directorname}}</p>
+                    <p>Movie Type : {{item.movieid.movietype}}</p>
+                    <p>Movie Rating : {{item.movieid.rating}}</p>
+                    <p>Borrow Time : {{item.borrowtime}}</p>
+                    <p>Return Time : {{item.returntime}}</p>
+                    {% if item.returntime %}
+                    <p>My Rating : {{item.rating}}</p>
+                    {% endif %}
+                </div>
+                {% if not item.returntime %}
+                <form method="post" class="post-form" action="/return_order/?next=/order_page/" style="margin-left: 10px;">
+                    {% csrf_token %}
+                    <p>Rating</p>
+                    1 <input type="radio" value="1" name="rate">
+                    2 <input type="radio" value="2" name="rate">
+                    3 <input type="radio" value="3" name="rate">
+                    4 <input type="radio" value="4" name="rate">
+                    5 <input type="radio" value="5" name="rate">
+                    <button class="btn btn-secondary" value={{item.movieid.id}} name="return_order">Return</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<br>
+
+{% if error_msg %}
+<script language="javascript">
+    alert("{{error_msg}}")
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<form method="post" class="post-form" action="/edit_user_info/">
+    {% csrf_token %}
+    Si : <input type="text" name="edit_info"><br>
+    Gu : <input type="text" name="edit_info"><br>
+    Creditcard : <input type="text" name="edit_info"><br>
+    Email : <input type="text" name="edit_info"><br>
+    Phonenumber : <input type="text" name="edit_info"><br>
+    Account Type : <input type="text" name="edit_account"><br>
+    Account Create Time : <input type="text" name="edit_account"><br>
+    <input type="submit" value="edit" onclick="window.close()"> 
+</form>
+
+
+{% endblock %}
