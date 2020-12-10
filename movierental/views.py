@@ -21,6 +21,41 @@ def homepage(request):
 
     return render(request, 'homepage.html', {'qs' : qs, 'cast_info' : cast_info})
 
+def signup(request):
+    response_data = {}
+
+    if request.method == 'GET':
+        return render(request, 'signup.html',{}) 
+
+    elif request.method == 'POST':
+        data = request.POST
+        print(data)
+
+        if not (data['email'] and data['name']):
+            response_data['error'] = 'email과 이름을 모두 입력해주세요.'
+
+        else:
+            last_user_id = Customer.objects.last().id
+            user_id = last_user_id + 111111
+            user_name = data['name']
+            user_email = data['email']
+            user_si = data['si']
+            user_gu = data['gu']
+            user_creditcard = data['creditcard']
+            user_phonenumber = data['phonenumber']
+            user_sex = data['sex']
+            Customer.objects.create(id=user_id, name=user_name, si=user_si, gu=user_gu, creditcard=user_creditcard, email=user_email, phonenumber=user_phonenumber, sex=user_sex)
+
+            last_account_id = Account.objects.last().id
+            account_id = last_account_id + 1
+            account_type = data['accounttype']
+            acccreatetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            customer_id = Customer.objects.get(id=user_id)
+            Account.objects.create(id=account_id, accounttype=account_type, acccreatetime=acccreatetime, customerid=customer_id)
+            
+        return render(request, "signup.html", response_data)    
+        
+
 def login(request):
     response_data = {}
 
