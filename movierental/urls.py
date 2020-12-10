@@ -20,4 +20,5 @@ urlpatterns = [
     path('return_order/', views.return_order, name='return_order'),
     path('rating/', views.return_order, name='rating'), 
     path('signup/', views.signup, name='signup'),
+    path('genre/', views.genre, name='genre'),
 ]

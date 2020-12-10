@@ -221,3 +221,20 @@ def return_order(request):
     
     return render(request, "order.html", {'user_info' : user_info, 'order_info' : order_info})
 
+def genre(request):
+    qs = []
+    qs_action = Movie.objects.filter(movietype="Action")
+    qs_comedy = Movie.objects.filter(movietype="Comedy")
+    qs_romance = Movie.objects.filter(movietype="Romance")
+
+    qs.append(qs_action)
+    qs.append(qs_comedy)
+    qs.append(qs_romance)
+    
+    cast_info = []
+    for query in qs:
+        for item in query:
+            casts = Cast.objects.filter(movieid=item.id)
+            cast_info.append(casts)
+
+    return render(request, "genre.html", {'qs' : qs, 'cast_info' : cast_info})

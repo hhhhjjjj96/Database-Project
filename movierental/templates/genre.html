@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Flims by genre</h1>
+<br><br>
+{% for query in qs %}
+<div class="container">
+    <details>
+        <summary style="font-size: 30px;">{{query.0.movietype}}</summary> 
+        <div class="card" style="width: 100%;">
+            <div class="row">
+                {% for item in query %}
+                <div class="col">
+                    <div class="card-body">
+                        <h3>{{ item.moviename }}</h3>
+                        <br>
+                        <p>Director : {{item.directorname}}</p>
+                        <p>Movie Type : {{item.movietype}}</p>
+                        <p>Movie Rating : {{item.rating}}</p>
+                        <details>
+                            <summary>Actors</summary>
+                            {% for casts in cast_info %}
+                            {% for cast in casts %}
+                            {% if cast.movieid.id == item.id %}
+                            <div>
+                                Name : {{cast.actorid.name}},
+                                Age : {{cast.actorid.age}},
+                                Sex : {{cast.actorid.sex}},
+                                Rating : {{cast.actorid.rating}}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </details>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </details>
+</div>
+<br>
+{% endfor %}
+{% endblock %}
