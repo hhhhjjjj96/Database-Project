@@ -35,7 +35,6 @@ def signup(request):
 
     elif request.method == 'POST':
         data = request.POST
-        print(data)
 
         if not (data['email'] and data['name']):
             response_data['error'] = 'email과 이름을 모두 입력해주세요.'
@@ -146,7 +145,7 @@ def get_moviequeue(request):
     for item in qs:
         casts = Cast.objects.filter(movieid=item.movieid.id)
         cast_info.append(casts)
-    print(cast_info)
+    
     return render(request, "moviequeue.html", {'qs' : qs, 'cast_info' : cast_info})
 
 def get_bestseller(request):
@@ -170,7 +169,7 @@ def search(request):
         for item in movies:
             casts = Cast.objects.filter(movieid=item.id)
             cast_info.append(casts)
-        print(cast_info)
+        
         return render(request, 'search.html', {'movies' : movies,'q' : q, 'cast_info' : cast_info})
 
     else:
