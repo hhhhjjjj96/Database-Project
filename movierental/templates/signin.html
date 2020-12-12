@@ -7,17 +7,16 @@
     <form method="post" class="post-form" action="/login/">
         {% csrf_token %}
         <div class="form-group">
-            <label for="email">사용자email</label>
+            <label for="email">User Email</label>
             <input type="text" class="form-control" name="email" id="email"
                    value="{{ form.username.value|default_if_none:'' }}" style="width:200px;">
         </div>
         <div class="form-group">
-            <label for="name">사용자이름</label>
+            <label for="name">User Name</label>
             <input type="name" class="form-control" name="name" id="name"
                    value="{{ form.password.value|default_if_none:'' }}" style="width:200px;">
         </div>
-        <br>
-        <button type="submit" class="btn btn-secondary" style="height:35px; font-size:13px;">로그인</button>
+        <button type="submit" class="btn btn-secondary" style="height:35px; font-size:13px;">Login</button>
     </form>
 </div>
 
