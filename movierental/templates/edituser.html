@@ -9,8 +9,15 @@
     <label style="min-width: 25%;">Email : </label><input type="text" name="edit_info"><br>
     <label style="min-width: 25%;">Phonenumber : </label><input type="text" name="edit_info"><br>
     <label style="min-width: 25%;">Account Type : </label><input type="text" name="edit_account"><br>
-    <input class="btn btn-secondary pull-right" type="submit" value="edit" onclick="window.close()"> 
+    <button type="submit" class="btn btn-secondary"onclick="window.close()">Edit</button>
+    
 </form>
+
+<script type="text/javascript">
+    function close(){
+        window.open('').close();
+    }
+</script>
 
 
 {% endblock %}

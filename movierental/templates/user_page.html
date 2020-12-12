@@ -3,18 +3,18 @@
 
 <h1>User Page</h1>
 <br><br>
-Name : {{ user_info.name }}<br>
-Si : {{ user_info.si }}<br>
-Gu : {{ user_info.gu }}<br>
-Creditcard : {{ user_info.creditcard }}<br>
-Email : {{ user_info.email }}<br>
-Phonenumber : {{ user_info.phonenumber }}<br>
-Sex : {{ user_info.sex }}<br>
-Account Type : {{ account_info.accounttype }}<br>
-Account Create Time : {{ account_info.acccreatetime }}<br>
+<label style="min-width: 15%;">Name : </label>{{ user_info.name }}<br>
+<label style="min-width: 15%;">Si : </label>{{ user_info.si }}<br>
+<label style="min-width: 15%;">Gu : </label>{{ user_info.creditcard }}<br>
+<label style="min-width: 15%;">Credit Card : </label>{{ user_info.creditcard }}<br>
+<label style="min-width: 15%;">Email : </label>{{ user_info.email }}<br>
+<label style="min-width: 15%;">Phonenumber : </label>{{ user_info.phonenumber }}<br>
+<label style="min-width: 15%;">Sex : </label>{{ user_info.sex }}<br>
+<label style="min-width: 15%;">Account Type : </label>{{ account_info.accounttype }}<br>
+<label style="min-width: 15%;">Account Create Time : </label>{{ account_info.acccreatetime }}<br>
 <br>
 
-<button class="btn btn-secondary" onclick="showPopup()">edit</button>
+<button class="btn btn-secondary" onclick="showPopup()">Edit</button>
 
 <script language="javascript">
     function showPopup() {window.open("/edit_user_info/", "a", "width=700, height=500, left=100, top=50");}

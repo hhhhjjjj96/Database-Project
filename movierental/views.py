@@ -57,8 +57,9 @@ def signup(request):
             acccreatetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             customer_id = Customer.objects.get(id=user_id)
             Account.objects.create(id=account_id, accounttype=account_type, acccreatetime=acccreatetime, customerid=customer_id)
-            
-        return render(request, "signup.html", response_data)    
+            return redirect('login')
+        
+        return render(request, "signup.html", response_data)
         
 
 def login(request):
@@ -118,18 +119,26 @@ def edit_user_info(request):
         if len(get_user_edit[4])!=0:
             user_info.phonenumber = get_user_edit[4]
         user_info.save()
+
         if len(get_account_edit[0])!=0:
             account_info.accounttype = get_account_edit[0]
-        if len(get_account_edit[1])!=0:
-            account_info.acccreatetime = get_account_edit[1]
         account_info.save()
 
         return redirect('user_page')
 
 def add_moviequeue(request):
     tmp = request.POST.getlist('sel_movie')
-    if(len(tmp)>2):
-        print('a')
+
+    if(len(tmp)>1):
+        for item in tmp:
+            user_id = request.session.get('user')
+            user_info = Customer.objects.get(pk=user_id)
+            movie_info = Movie.objects.get(pk=item)
+            moviequeue_info = Moviequeue.objects.filter(customerid=user_info)
+            qn = len(moviequeue_info) + 1
+            Moviequeue.objects.create(customerid=user_info, movieid=movie_info, queuenumber=qn)
+        return redirect('/')
+
     else:
         user_id = request.session.get('user')
         user_info = Customer.objects.get(pk=user_id)
@@ -140,15 +149,27 @@ def add_moviequeue(request):
     return redirect('/')
 
 def get_moviequeue(request):
+    user_id = request.session.get('user')
+    if user_id :
+        user_info = Customer.objects.get(pk=user_id)
+    else :
+        user_info = None
+
     qs = Moviequeue.objects.filter(customerid=request.session['user'])
     cast_info = []
     for item in qs:
         casts = Cast.objects.filter(movieid=item.movieid.id)
         cast_info.append(casts)
     
-    return render(request, "moviequeue.html", {'qs' : qs, 'cast_info' : cast_info})
+    return render(request, "moviequeue.html", {'qs' : qs, 'cast_info' : cast_info, 'user_info' : user_info})
 
 def get_bestseller(request):
+    user_id = request.session.get('user')
+    if user_id :
+        user_info = Customer.objects.get(pk=user_id)
+    else :
+        user_info = None
+
     qs = Movie.objects.all().order_by('-numcopies')
 
     cast_info = []
@@ -156,9 +177,15 @@ def get_bestseller(request):
         casts = Cast.objects.filter(movieid=item.id)
         cast_info.append(casts)
 
-    return render(request, "bestseller.html", {'qs' : qs, 'cast_info' : cast_info})
+    return render(request, "bestseller.html", {'qs' : qs, 'cast_info' : cast_info, 'user_info' : user_info})
 
 def search(request):
+    user_id = request.session.get('user')
+    if user_id :
+        user_info = Customer.objects.get(pk=user_id)
+    else :
+        user_info = None
+
     search_movie = Movie.objects.all()
     q = request.POST.get('q',"")
 
@@ -170,7 +197,7 @@ def search(request):
             casts = Cast.objects.filter(movieid=item.id)
             cast_info.append(casts)
         
-        return render(request, 'search.html', {'movies' : movies,'q' : q, 'cast_info' : cast_info})
+        return render(request, 'search.html', {'movies' : movies,'q' : q, 'cast_info' : cast_info, 'user_info' : user_info})
 
     else:
         return render(request, 'search.html')
@@ -180,7 +207,7 @@ def order_page(request):
     user_info = Customer.objects.get(pk=user_id)  #pk : primary key
     order_info = Orders.objects.filter(customerid=user_id)
 
-    return render(request, "order.html", {'user_info' : user_info, 'order_info' : order_info})
+    return render(request, "order.html", {'user_info' : user_info, 'order_info' : order_info, 'user_info' : user_info})
 
 def order(request):
     borrowtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -217,7 +244,7 @@ def return_order(request):
     
     movie_info = Movie.objects.get(pk=data)
 
-    return_instance = Orders.objects.get(movieid=movie_info)
+    return_instance = Orders.objects.get(movieid=movie_info, customerid=user_info)
     return_instance.returntime = returntime
     return_instance.rating = rate
     return_instance.save()
@@ -227,6 +254,12 @@ def return_order(request):
     return render(request, "order.html", {'user_info' : user_info, 'order_info' : order_info})
 
 def genre(request):
+    user_id = request.session.get('user')
+    if user_id :
+        user_info = Customer.objects.get(pk=user_id)
+    else :
+        user_info = None
+
     qs = []
     qs_action = Movie.objects.filter(movietype="Action")
     qs_comedy = Movie.objects.filter(movietype="Comedy")
@@ -242,4 +275,4 @@ def genre(request):
             casts = Cast.objects.filter(movieid=item.id)
             cast_info.append(casts)
 
-    return render(request, "genre.html", {'qs' : qs, 'cast_info' : cast_info})
+    return render(request, "genre.html", {'qs' : qs, 'cast_info' : cast_info, 'user_info' : user_info})
