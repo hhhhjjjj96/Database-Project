@@ -15,46 +15,12 @@
                 <th>More</th>
             </tr>
         </thead>
-        <tbody>
-            {% if request.session.check == 1 %}
-            <form method="post" class="post-form" action="/add_moviequeue/">
-                {% for item in qs %}
-                <tr>
-                    <td><input type="checkbox" name="sel_movie" value={{item.id}}></td>
-                    <td>{{item.moviename}}</td>
-                    <td>{{item.directorname}}</td>
-                    <td>{{item.movietype}}</td>
-                    <td>{{item.numcopies}}</td>
-                    <td>{{item.rating}}</td>
-                    <td>
-                        <details>
-                            <summary>Actors</summary>
-                            {% for casts in cast_info %}
-                            {% for cast in casts %}
-                            {% if cast.movieid.id == item.id %}
-                            <div>
-                                Name : {{cast.actorid.name}},
-                                Age : {{cast.actorid.age}},
-                                Sex : {{cast.actorid.sex}},
-                                Rating : {{cast.actorid.rating}}
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                            {% endfor %}
-                        </details>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary pull-right">add</button>
-            </form>
-        </tbody>
-
-        {% else %}
+        {% if request.session.check == 1 %}
+        <form method="post" class="post-form" action="/add_moviequeue/">
         <tbody>
             {% for item in qs %}
             <tr>
-                <td></td>
+                <td><input type="checkbox" name="sel_movie" value={{item.id}}></td>
                 <td>{{item.moviename}}</td>
                 <td>{{item.directorname}}</td>
                 <td>{{item.movietype}}</td>
@@ -80,7 +46,42 @@
             </tr>
             {% endfor %}
         </tbody>
-        {% endif %}
+    </table>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary pull-right">Add to Queue</button>
+    </form>
+
+    {% else %}
+    <tbody>
+        {% for item in qs %}
+        <tr>
+            <td></td>
+            <td>{{item.moviename}}</td>
+            <td>{{item.directorname}}</td>
+            <td>{{item.movietype}}</td>
+            <td>{{item.numcopies}}</td>
+            <td>{{item.rating}}</td>
+            <td>
+                <details>
+                    <summary>Actors</summary>
+                    {% for casts in cast_info %}
+                    {% for cast in casts %}
+                    {% if cast.movieid.id == item.id %}
+                    <div>
+                        Name : {{cast.actorid.name}},
+                        Age : {{cast.actorid.age}},
+                        Sex : {{cast.actorid.sex}},
+                        Rating : {{cast.actorid.rating}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endif %}
     </table>
 </div>
 
