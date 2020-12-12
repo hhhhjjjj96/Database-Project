@@ -14,12 +14,18 @@ Session.objects.all().delete()
 def homepage(request):
     qs = Movie.objects.all()
 
+    user_id = request.session.get('user')
+    if user_id :
+        user_info = Customer.objects.get(pk=user_id)
+    else :
+        user_info = None
+
     cast_info = []
     for item in qs:
         casts = Cast.objects.filter(movieid=item.id)
         cast_info.append(casts)
 
-    return render(request, 'homepage.html', {'qs' : qs, 'cast_info' : cast_info})
+    return render(request, 'homepage.html', {'qs' : qs, 'cast_info' : cast_info, 'user_info' : user_info})
 
 def signup(request):
     response_data = {}
