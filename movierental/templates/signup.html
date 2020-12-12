@@ -6,16 +6,16 @@
 <form method="post" class="post-form" action="/signup/">
     {% csrf_token %}
     <h3>User Info</h3>
-    <label style="min-width: 12%;">Name(Required) : </label><input type="text" name="name"><br>
-    <label style="min-width: 12%;">Si : </label><input type="text" name="si"><br>
-    <label style="min-width: 12%;">Gu : </label><input type="text" name="gu"><br>
-    <label style="min-width: 12%;">Creditcard : </label><input type="text" name="creditcard"><br>
-    <label style="min-width: 12%;">Email(Required) : </label><input type="text" name="email"><br>
-    <label style="min-width: 12%;">Phonenumber : </label><input type="text" name="phonenumber"><br>
-    <label style="min-width: 12%;">Sex : </label><input type="text" name="sex"><br>
+    <label style="min-width: 12%;">Name(Required) : </label><input type="text" name="name" placeholder="Write Your Name"><br>
+    <label style="min-width: 12%;">Si : </label><input type="text" name="si" placeholder="Your Si"><br>
+    <label style="min-width: 12%;">Gu : </label><input type="text" name="gu" placeholder="Your Gu"><br>
+    <label style="min-width: 12%;">Creditcard : </label><input type="text" name="creditcard" placeholder="xxxx-xxxx-xxxx"><br>
+    <label style="min-width: 12%;">Email(Required) : </label><input type="text" name="email" placeholder="example@example.com"><br>
+    <label style="min-width: 12%;">Phonenumber : </label><input type="text" name="phonenumber" placeholder="010-xxxx-xxxx"><br>
+    <label style="min-width: 12%;">Sex : </label><input type="text" name="sex" placeholder="M or F"><br>
     <br>
     <h3>Account Info</h3>
-    <label style="min-width: 15%;">Account Type(Required) : </label><input type="text" name="accounttype"><br>
+    <label style="min-width: 15%;">Account Type(Required) : </label><input type="text" name="accounttype" placeholder="Limit or Unlimit"><br>
     <br>
     <button class="btn btn-secondary">Sign Up</button>
 </form>
