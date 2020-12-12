@@ -3,14 +3,13 @@
 
 <form method="post" class="post-form" action="/edit_user_info/">
     {% csrf_token %}
-    Si : <input type="text" name="edit_info"><br>
-    Gu : <input type="text" name="edit_info"><br>
-    Creditcard : <input type="text" name="edit_info"><br>
-    Email : <input type="text" name="edit_info"><br>
-    Phonenumber : <input type="text" name="edit_info"><br>
-    Account Type : <input type="text" name="edit_account"><br>
-    Account Create Time : <input type="text" name="edit_account"><br>
-    <input type="submit" value="edit" onclick="window.close()"> 
+    <label style="min-width: 25%;">Si : </label><input type="text" name="edit_info"><br>
+    <label style="min-width: 25%;">Gu : </label><input type="text" name="edit_info"><br>
+    <label style="min-width: 25%;">Creditcard : </label><input type="text" name="edit_info"><br>
+    <label style="min-width: 25%;">Email : </label><input type="text" name="edit_info"><br>
+    <label style="min-width: 25%;">Phonenumber : </label><input type="text" name="edit_info"><br>
+    <label style="min-width: 25%;">Account Type : </label><input type="text" name="edit_account"><br>
+    <input class="btn btn-secondary pull-right" type="submit" value="edit" onclick="window.close()"> 
 </form>
 
 
